@@ -8,6 +8,7 @@ for(var i=0; i<document.querySelectorAll(".drum").length; i++){
   document.querySelectorAll("button")[i].addEventListener("click", function (){
     var buttonInnerHtml= this.innerHTML;
     makeSound(buttonInnerHtml);
+    buttonAnimation(buttonInnerHtml);
     }
 
   );
@@ -15,6 +16,7 @@ for(var i=0; i<document.querySelectorAll(".drum").length; i++){
 // Detecting keyboard press
 document.addEventListener("keypress", function(event){
   makeSound(event.key);
+  buttonAnimation(event.key);
 })
 
 // For making sound as requested
@@ -54,7 +56,14 @@ function makeSound(key){
       var crash = new Audio("sounds/crash.mp3");
       crash.play();
     break;
-    default:
+    default: console.log(buttonInnerHtml);
   }
 
+}
+function buttonAnimation(currentKey){
+  var activeButton = document.querySelector("." +currentKey);
+  activeButton.classList.add("pressed");
+  setTimeout(function(){
+    activeButton.classList.remove("pressed");
+  }, 100); //Timeout in miliseconds is set to 100
 }
